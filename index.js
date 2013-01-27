@@ -48,6 +48,12 @@ Paypal.prototype.params = function() {
 
 Paypal.prototype.detail = function(token, payer, callback) {
 
+	if (typeof(token.get) !== 'undefined' && typeof(payer) === 'function') {
+		callback = payer;
+		payer = token.get.PayerID;
+		token = token.get.token;
+	}
+
 	var self = this;
 	var params = self.params();
 
@@ -58,6 +64,11 @@ Paypal.prototype.detail = function(token, payer, callback) {
 
 		if (err) {
 			callback(err, data);
+			return;
+		}		
+
+		if (typeof(data.CUSTOM) === 'undefined') {
+			callback(data, null);
 			return;
 		}
 
@@ -173,8 +184,8 @@ Paypal.prototype.request = function(url, method, data, callback) {
 	return self;
 };
 
-exports.version = '0.0.1';
+exports.version = 1001;
 exports.Paypal = Paypal;
 exports.init = function(username, password, signature, returnUrl, cancelUrl, debug) {
 	return new Paypal(username, password, signature, returnUrl, cancelUrl, debug);
-};
+}; 

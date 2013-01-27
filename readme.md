@@ -7,9 +7,15 @@ PayPal Express checkout for single payment
 
 ***
 
+```text
+$ npm install payment-paypal
+```
+
+***
+
 ```js
 
-var paypal = require('paypal').init('username', 'password', 'signature', 'return url', 'cancel url', [debug]);
+var paypal = require('payment-paypal').init('username', 'password', 'signature', 'return url', 'cancel url', [debug]);
 
 // debug = optional, default false
 // paypal.pay('Invoice nubmer', amout, 'description', 'currency', callback);
@@ -27,7 +33,10 @@ paypal.pay('20130001', 123.23, 'iPad', 'EUR', function(err, url) {
 });
 
 // result
-// paypal.detail('token', 'PayerID', callback)
+// paypal.detail('token', 'PayerID', callback);
+// or
+// paypal.detail(partialjs.controller, callback);
+
 paypal.detail('EC-788441863R616634K', '9TM892TKTDWCE', function(err, data) {
 	
 	if (err) {
@@ -57,10 +66,6 @@ paypal.detail('EC-788441863R616634K', '9TM892TKTDWCE', function(err, data) {
 
 });
 
-```
-
-```text
-$ npm install node-paypal
 ```
 
 ## Contact
