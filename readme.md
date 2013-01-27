@@ -3,7 +3,7 @@ PayPal Express checkout for single payment
 
 * Simple and easy use
 * __No dependencies__
-* [demo paypal](https://github.com/petersirka/partial.js/tree/master/examples/paypal)
+* [demo paypal](https://github.com/petersirka/partial.js/tree/master/examples/paypal) with [partial.js web application framework](https://github.com/petersirka/partial.js)
 
 ***
 
