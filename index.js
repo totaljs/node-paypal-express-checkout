@@ -184,7 +184,7 @@ Paypal.prototype.request = function(url, method, data, callback) {
 	return self;
 };
 
-exports.version = 1001;
+exports.version = 1002;
 exports.Paypal = Paypal;
 exports.init = function(username, password, signature, returnUrl, cancelUrl, debug) {
 	return new Paypal(username, password, signature, returnUrl, cancelUrl, debug);
