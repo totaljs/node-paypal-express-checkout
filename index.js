@@ -225,7 +225,7 @@ function prepareNumber(num, doubleZero) {
 	return str;
 }
 
-exports.version = 1002;
+exports.version = 1003;
 exports.Paypal = Paypal;
 exports.init = function(username, password, signature, returnUrl, cancelUrl, debug) {
 	return new Paypal(username, password, signature, returnUrl, cancelUrl, debug);
