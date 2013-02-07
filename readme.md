@@ -70,6 +70,7 @@ paypal.detail('EC-788441863R616634K', '9TM892TKTDWCE', function(err, data) {
 
 ## PayPal PAYMENTSTATUS
 
+```
 Canceled_Reversal: A reversal has been canceled. For example, you won a dispute with the customer, and the funds for the transaction that was reversed have been returned to you.
 Completed: The payment has been completed, and the funds have been added successfully to your account balance.
 Created: A German ELV payment is made using Express Checkout.
@@ -81,6 +82,7 @@ Refunded: You refunded the payment.
 Reversed: A payment was reversed due to a chargeback or other type of reversal. The funds have been removed from your account balance and returned to the buyer. The reason for the reversal is specified in the ReasonCode element.
 Processed: A payment has been accepted.
 Voided: This authorization has been voided.
+```
 
 ## Contact
 
