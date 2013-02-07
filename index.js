@@ -46,6 +46,13 @@ Paypal.prototype.params = function() {
 	};
 };
 
+/*
+	Get payment detail
+	@token {String}
+	@payer {String} :: PayerID
+	@callback {Function} :: callback(err, data, invoiceNumber, price);
+	return {Paypal}
+*/
 Paypal.prototype.detail = function(token, payer, callback) {
 
 	if (typeof(token.get) !== 'undefined' && typeof(payer) === 'function') {
@@ -89,20 +96,29 @@ Paypal.prototype.detail = function(token, payer, callback) {
 				return;
 			}
 
-			callback(null, data, custom[1]);
+			callback(null, data, custom[0], custom[1]);
 		});
 	});
 
 	return self;	
 };
 
+/*
+	Get payment detail
+	@invoiceNumber {String}
+	@amout {Number}
+	@description {String}
+	@currency {String} :: EUR, USD
+	@callback {Function} :: callback(err, url);
+	return {Paypal}
+*/
 Paypal.prototype.pay = function(invoiceNumber, amout, description, currency, callback) {
 
 	var self = this;
 	var params = self.params();
 
 	params.PAYMENTACTION = 'Sale';
-	params.AMT = amout.toString().replace(',', '.');
+	params.AMT = prepareNumber(amout);
 	params.RETURNURL = self.returnUrl;
 	params.CANCELURL = self.cancelUrl;
 	params.DESC = description;
@@ -131,6 +147,14 @@ Paypal.prototype.pay = function(invoiceNumber, amout, description, currency, cal
 	return self;
 };
 
+/*
+	Internal function
+	@url {String}
+	@method {String}
+	@data {String}
+	@callback {Function} :: callback(err, data);
+	return {Paypal}
+*/
 Paypal.prototype.request = function(url, method, data, callback) {
 
 	var self = this;
@@ -183,6 +207,23 @@ Paypal.prototype.request = function(url, method, data, callback) {
 
 	return self;
 };
+
+function prepareNumber(num, doubleZero) {
+	var str = num.toString().replace(',', '.');
+
+	var index = str.indexOf('.');
+	if (index > -1) {
+		var len = str.substring(index + 1).length;
+		if (len === 1)
+			str += '0';
+		if (len > 2)
+			str = str.substring(0, index + 3);
+	} else {
+		if (doubleZero || true)
+			str += '.00';
+	}
+	return str;
+}
 
 exports.version = 1002;
 exports.Paypal = Paypal;
