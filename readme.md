@@ -5,6 +5,11 @@ Node.js PayPal Express checkout for single payment
 * __No dependencies__
 * [demo paypal](https://github.com/petersirka/partial.js/tree/master/examples/paypal) with [partial.js web application framework](https://github.com/petersirka/partial.js)
 
+PayPal account
+--------------
+
+[https://developer.paypal.com/webapps/developer/applications/accounts](![](http://www.partialjs.com/exports/paypal-info.jpg))
+
 ***
 
 ```text
