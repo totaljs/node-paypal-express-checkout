@@ -35,7 +35,7 @@ paypal.pay('20130001', 123.23, 'iPad', 'EUR', function(err, url) {
 		return;
 	}
 
-	// redirect to paypall webpage
+	// redirect to paypal webpage
 	response.redirect(url);
 });
 
