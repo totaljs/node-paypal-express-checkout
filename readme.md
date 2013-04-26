@@ -8,7 +8,7 @@ Node.js PayPal Express checkout for single payment
 PayPal account
 --------------
 
-[https://developer.paypal.com/webapps/developer/applications/accounts](![](http://www.partialjs.com/exports/paypal-info.jpg))
+[![PayPal account](http://www.partialjs.com/exports/paypal-info.jpg)]: https://developer.paypal.com/webapps/developer/applications/accounts
 
 ***
 
