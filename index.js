@@ -170,7 +170,7 @@ Paypal.prototype.request = function(url, method, data, callback) {
 	headers['Content-Length'] = params.length;
 
 	var location = '';
-	var options = { protocol: uri.protocol, auth: uri.auth, method: method || 'GET', hostname: uri.hostname, port: uri.port, path: uri.path, agent:false, headers: headers };
+	var options = { protocol: uri.protocol, auth: uri.auth, method: method || 'GET', hostname: uri.hostname, port: uri.port, path: uri.path, agent: false, headers: headers };
 
 	var response = function (res) {
 		var buffer = '';

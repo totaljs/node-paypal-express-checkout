@@ -1,6 +1,6 @@
 {
     "name": "payment-paypal",
-    "version": "1.0.0-4",
+    "version": "1.0.0-5",
     "description": "node.js paypal",
     "main": "./index.js",
     "engines": {
