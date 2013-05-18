@@ -15,14 +15,14 @@ PayPal account
 ***
 
 ```text
-$ npm install payment-paypal
+$ npm install paypal-express-checkout
 ```
 
 ***
 
 ```js
 
-var paypal = require('payment-paypal').init('username', 'password', 'signature', 'return url', 'cancel url', [debug]);
+var paypal = require('paypal-express-checkout').init('username', 'password', 'signature', 'return url', 'cancel url', [debug]);
 
 // debug = optional, default false
 // paypal.pay('Invoice nubmer', amout, 'description', 'currency', callback);

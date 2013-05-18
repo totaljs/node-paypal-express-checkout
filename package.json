@@ -1,7 +1,7 @@
 {
-    "name": "payment-paypal",
+    "name": "paypal-epxress-checkout",
     "version": "1.0.0-5",
-    "description": "node.js paypal",
+    "description": "node.js paypal express checkout",
     "main": "./index.js",
     "engines": {
         "node": "0.8.x"
@@ -12,7 +12,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/petersirka/node-payment-paypal.git"
+        "url": "https://github.com/petersirka/node-paypal-express-checkout"
     },
     "author": {
         "name": "Peter Širka"
