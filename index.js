@@ -141,7 +141,7 @@ Paypal.prototype.pay = function(invoiceNumber, amout, description, currency, cal
 			return;
 		}
 
-		callback(new Error(data.ACK), null);
+		callback(new Error('ACK ' + data.ACK + ': ' + data.L_LONGMESSAGE0), null);
 	});
 
 	return self;
