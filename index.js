@@ -91,15 +91,15 @@ Paypal.prototype.detail = function(token, payer, callback) {
 	@callback {Function} :: callback(err, url);
 	return {Paypal}
 */
-Paypal.prototype.pay = function(invoiceNumber, amout, description, currency, callback) {
+Paypal.prototype.pay = function(invoiceNumber, amout, description, currency, opts, callback) {
 
 	var self = this;
 	var params = self.params();
 
 	params.PAYMENTACTION = 'Sale';
 	params.AMT = prepareNumber(amout);
-	params.RETURNURL = self.returnUrl;
-	params.CANCELURL = self.cancelUrl;
+	params.RETURNURL = opts.RETURNURL || self.returnUrl;
+	params.CANCELURL = opts.CANCELURL || self.cancelUrl;
 	params.DESC = description;
 	params.NOSHIPPING = 1;
 	params.ALLOWNOTE = 1;
