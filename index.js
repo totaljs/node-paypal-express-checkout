@@ -92,6 +92,7 @@ Paypal.prototype.detail = function(token, payer, callback) {
 	return {Paypal}
 */
 Paypal.prototype.pay = function(invoiceNumber, amout, description, currency, opts, callback) {
+  if(typeof(opts) == 'function'){callback = opts}
 
 	var self = this;
 	var params = self.params();
