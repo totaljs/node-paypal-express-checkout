@@ -208,12 +208,8 @@ exports.Paypal = Paypal;
 
 exports.init = function(username, password, signature, returnUrl, cancelUrl, debug) {
 	return new Paypal(username, password, signature, returnUrl, cancelUrl, debug);
-<<<<<<< HEAD
 };
 
 exports.create = function(username, password, signature, returnUrl, cancelUrl, debug) {
 	return exports.init(username, password, signature, returnUrl, cancelUrl, debug);
 };
-=======
-}; 
->>>>>>> 83c411ec7237aca28dddcf632a8a4621a6dc4adb
