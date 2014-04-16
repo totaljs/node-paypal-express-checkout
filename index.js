@@ -91,16 +91,15 @@ Paypal.prototype.detail = function(token, payer, callback) {
 	@callback {Function} :: callback(err, url);
 	return {Paypal}
 */
-Paypal.prototype.pay = function(invoiceNumber, amout, description, currency, opts, callback) {
-  if(typeof(opts) == 'function'){callback = opts}
+Paypal.prototype.pay = function(invoiceNumber, amout, description, currency, callback) {
 
 	var self = this;
 	var params = self.params();
 
 	params.PAYMENTACTION = 'Sale';
 	params.AMT = prepareNumber(amout);
-	params.RETURNURL = opts.RETURNURL || self.returnUrl;
-	params.CANCELURL = opts.CANCELURL || self.cancelUrl;
+	params.RETURNURL = self.returnUrl;
+	params.CANCELURL = self.cancelUrl;
 	params.DESC = description;
 	params.NOSHIPPING = 1;
 	params.ALLOWNOTE = 1;
@@ -209,8 +208,12 @@ exports.Paypal = Paypal;
 
 exports.init = function(username, password, signature, returnUrl, cancelUrl, debug) {
 	return new Paypal(username, password, signature, returnUrl, cancelUrl, debug);
+<<<<<<< HEAD
 };
 
 exports.create = function(username, password, signature, returnUrl, cancelUrl, debug) {
 	return exports.init(username, password, signature, returnUrl, cancelUrl, debug);
 };
+=======
+}; 
+>>>>>>> 83c411ec7237aca28dddcf632a8a4621a6dc4adb
