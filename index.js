@@ -6,6 +6,7 @@ function Paypal(username, password, signature, returnUrl, cancelUrl, debug) {
 
 	this.username = username;
 	this.password = password;
+	this.solutiontype = 'Mark';
 	this.signature = signature;
 	this.debug = debug || false;
 	this.returnUrl = returnUrl;
@@ -21,6 +22,7 @@ Paypal.prototype.params = function() {
 		USER: self.username,
 		PWD: self.password,
 		SIGNATURE: self.signature,
+		SOLUTIONTYPE: self.solutiontype,
 		VERSION: '52.0'
 	};
 };
