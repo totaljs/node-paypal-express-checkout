@@ -42,7 +42,7 @@ paypal.pay('20130001', 123.23, 'iPad', 'EUR', function(err, url) {
 // result in GET method
 // paypal.detail('token', 'PayerID', callback);
 // or
-// paypal.detail(partialjs.controller, callback);
+// paypal.detail(totaljs.controller, callback);
 
 paypal.detail('EC-788441863R616634K', '9TM892TKTDWCE', function(err, data, invoiceNumber, price) {
 	

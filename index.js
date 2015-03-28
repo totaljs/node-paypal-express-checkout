@@ -206,6 +206,7 @@ function prepareNumber(num, doubleZero) {
 	return str;
 }
 
+exports.timeout = 10000;
 exports.Paypal = Paypal;
 
 exports.init = function(username, password, signature, returnUrl, cancelUrl, debug) {
@@ -215,3 +216,5 @@ exports.init = function(username, password, signature, returnUrl, cancelUrl, deb
 exports.create = function(username, password, signature, returnUrl, cancelUrl, debug) {
 	return exports.init(username, password, signature, returnUrl, cancelUrl, debug);
 };
+
+
