@@ -3,7 +3,7 @@ Node.js PayPal Express checkout for single payment
 
 * Simple and easy use
 * __No dependencies__
-* [Demo paypal](https://github.com/petersirka/partial.js/tree/master/examples/paypal) with the [partial.js web application framework](https://github.com/petersirka/partial.js)
+* [Demo paypal](https://github.com/totaljs/examples/tree/master/paypal) with the [total.js - web application framework for node.js](https://github.com/totaljs/framework)
 
 PayPal account
 --------------
@@ -95,6 +95,7 @@ Voided: This authorization has been voided.
 
 > Login into your bussiness account and click here: https://www.sandbox.paypal.com/ca/cgi-bin/?cmd=_profile-pref&source=acct_setup&fli=true
 
-## Contact
+## License
 
-<http://www.petersirka.sk>
+MIT
+<petersirka@gmail.com>
