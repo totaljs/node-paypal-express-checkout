@@ -1,4 +1,4 @@
-Node.js PayPal Express checkout for single payment
+Node.js PayPal Express Checkout
 ==================================================
 
 * Simple and easy use
