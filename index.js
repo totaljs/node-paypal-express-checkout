@@ -87,19 +87,19 @@ Paypal.prototype.detail = function(token, payer, callback) {
 /*
 	Get payment detail
 	@invoiceNumber {String}
-	@amout {Number}
+	@amount {Number}
 	@description {String}
 	@currency {String} :: EUR, USD
 	@callback {Function} :: callback(err, url);
 	return {Paypal}
 */
-Paypal.prototype.pay = function(invoiceNumber, amout, description, currency, callback) {
+Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, callback) {
 
 	var self = this;
 	var params = self.params();
 
 	params.PAYMENTACTION = 'Sale';
-	params.AMT = prepareNumber(amout);
+	params.AMT = prepareNumber(amount);
 	params.RETURNURL = self.returnUrl;
 	params.CANCELURL = self.cancelUrl;
 	params.DESC = description;
@@ -180,6 +180,10 @@ Paypal.prototype.request = function(url, method, data, callback) {
 	};
 
 	var req = https.request(options, response);
+	
+	req.on('error', function(err) {
+    	console.log(err);
+	});
 
 	if (method === 'POST')
 		req.end(params);
