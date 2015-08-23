@@ -8,7 +8,7 @@ Node.js PayPal Express Checkout
 PayPal account
 --------------
 
-![PayPal account](http://partialjs.com/exports/paypal-info.jpg)
+![PayPal account](http://www.totaljs.com/exports/paypal-info.jpg)
 
 <https://developer.paypal.com/webapps/developer/applications/accounts>
 
