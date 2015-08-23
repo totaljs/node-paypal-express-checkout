@@ -1,9 +1,9 @@
 Node.js PayPal Express Checkout
 ==================================================
 
-* Simple and easy use
+* Easy to use
 * __No dependencies__
-* [Demo paypal](https://github.com/totaljs/examples/tree/master/paypal) with the [total.js - web application framework for node.js](https://github.com/totaljs/framework)
+* [Full source-code of the eshop with PayPal written in node.js](http://www.totaljs.com/eshop/)
 
 PayPal account
 --------------
@@ -20,8 +20,7 @@ $ npm install paypal-express-checkout
 
 ***
 
-```js
-
+```javascript
 var paypal = require('paypal-express-checkout').init('username', 'password', 'signature', 'return url', 'cancel url', [debug]);
 
 // debug = optional, default false
