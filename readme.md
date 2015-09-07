@@ -24,10 +24,11 @@ $ npm install paypal-express-checkout
 var paypal = require('paypal-express-checkout').init('username', 'password', 'signature', 'return url', 'cancel url', [debug]);
 
 // debug = optional, default false
-// paypal.pay('Invoice nubmer', amout, 'description', 'currency', callback);
+// paypal.pay('Invoice nubmer', amout, 'description', 'currency', 'requireAddress', callback);
 // checkout
 
-paypal.pay('20130001', 123.23, 'iPad', 'EUR', function(err, url) {
+
+paypal.pay('20130001', 123.23, 'iPad', 'EUR', true, function(err, url) {
 	
 	if (err) {
 		console.log(err);

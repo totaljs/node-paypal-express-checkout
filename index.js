@@ -75,7 +75,7 @@ Paypal.prototype.detail = function(token, payer, callback) {
 	return self;
 };
 
-Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, callback) {
+Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, requireAddress, callback) {
 
 	var self = this;
 	var params = self.params();
@@ -85,6 +85,7 @@ Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, ca
 	params.RETURNURL = self.returnUrl;
 	params.CANCELURL = self.cancelUrl;
 	params.DESC = description;
+	params.NOSHIPPING = requireAddress ? 0 : 1;
 	params.NOSHIPPING = 1;
 	params.ALLOWNOTE = 1;
 	params.CURRENCYCODE = currency;
