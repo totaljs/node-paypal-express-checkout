@@ -86,7 +86,6 @@ Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, re
 	params.CANCELURL = self.cancelUrl;
 	params.DESC = description;
 	params.NOSHIPPING = requireAddress ? 0 : 1;
-	params.NOSHIPPING = 1;
 	params.ALLOWNOTE = 1;
 	params.CURRENCYCODE = currency;
 	params.METHOD = 'SetExpressCheckout';
