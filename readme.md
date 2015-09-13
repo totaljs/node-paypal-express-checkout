@@ -95,6 +95,13 @@ Voided: This authorization has been voided.
 
 > Login into your bussiness account and click here: https://www.sandbox.paypal.com/ca/cgi-bin/?cmd=_profile-pref&source=acct_setup&fli=true
 
+## Contributors
+
+| Contributor | Type | E-mail |
+|-------------|------|--------|
+| [Peter Širka](https://www.petersirka.eu) | author + support | <petersirka@gmail.com> |
+| [Johann Botha](https://github.com/johannbotha) | contributor | <johannbbotha@gmail.com> |
+
 ## License
 
 MIT

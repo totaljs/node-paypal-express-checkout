@@ -17,5 +17,12 @@
     },
     "author": {
         "name": "Peter Širka"
-    }
+    },
+    "contributors": [{
+        "name": "Peter Širka",
+        "email": "petersirka@gmail.com"
+    }, {
+        "name": "Johann Botha",
+        "email": "johannbbotha@gmail.com"
+    }]
 }
