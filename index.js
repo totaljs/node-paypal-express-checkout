@@ -77,6 +77,12 @@ Paypal.prototype.detail = function(token, payer, callback) {
 
 Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, requireAddress, callback) {
 
+	// Backward compatibility
+	if (typeof(requireAddress) === 'function') {
+		callback = requireAddress;
+		requireAddress = false;
+	}
+
 	var self = this;
 	var params = self.params();
 
