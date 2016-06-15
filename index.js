@@ -1,6 +1,8 @@
-var Parser = require('url');
-var Https = require('https');
-var Qs = require('querystring');
+const Parser = require('url');
+const Https = require('https');
+const Qs = require('querystring');
+const HEADERS = {};
+const PARAMS = { VERSION: '52.0' };
 
 function Paypal(username, password, signature, returnUrl, cancelUrl, debug) {
 	this.username = username;
@@ -16,21 +18,20 @@ function Paypal(username, password, signature, returnUrl, cancelUrl, debug) {
 
 Paypal.prototype.params = function() {
 	var self = this;
-	return {
-		USER: self.username,
-		PWD: self.password,
-		SIGNATURE: self.signature,
-		SOLUTIONTYPE: self.solutiontype,
-		VERSION: '52.0'
-	};
+	PARAMS.USER = self.username;
+	PARAMS.PWD = self.password;
+	PARAMS.SIGNATURE = self.signature;
+	PARAMS.SOLUTIONTYPE = self.solutiontype;
+	return PARAMS;
 };
 
 Paypal.prototype.detail = function(token, payer, callback) {
 
-	if (token.get !== undefined && typeof(payer) === 'function') {
+	// Total.js
+	if (token.query !== undefined && typeof(payer) === 'function') {
 		callback = payer;
-		payer = token.get.PayerID;
-		token = token.get.token;
+		payer = token.query.PayerID;
+		token = token.query.token;
 	}
 
 	var self = this;
@@ -47,13 +48,13 @@ Paypal.prototype.detail = function(token, payer, callback) {
 		}
 
 		if (typeof(data.CUSTOM) === 'undefined') {
-			callback(data, null);
+			callback(null, data, 0);
 			return;
 		}
 
 		var custom = data.CUSTOM.split('|');
-
 		var params = self.params();
+
 		params.PAYMENTACTION = 'Sale';
 		params.PAYERID = payer;
 		params.TOKEN = token;
@@ -125,24 +126,18 @@ Paypal.prototype.request = function(url, method, data, callback) {
 		url += '?' + params;
 
 	var uri = Parser.parse(url);
-	var headers = {};
 
-	headers['Content-Type'] = method === 'POST' ? 'application/x-www-form-urlencoded' : 'text/plain';
-	headers['Content-Length'] = params.length;
+	HEADERS['Content-Type'] = method === 'POST' ? 'application/x-www-form-urlencoded' : 'text/plain';
+	HEADERS['Content-Length'] = params.length;
 
 	var location = '';
-	var options = { protocol: uri.protocol, auth: uri.auth, method: method || 'GET', hostname: uri.hostname, port: uri.port, path: uri.path, agent: false, headers: headers };
+	var options = { protocol: uri.protocol, auth: uri.auth, method: method || 'GET', hostname: uri.hostname, port: uri.port, path: uri.path, agent: false, headers: HEADERS };
 
 	var response = function (res) {
 		var buffer = '';
 
-		res.on('data', function(chunk) {
-			buffer += chunk.toString('utf8');
-		})
-
-		req.setTimeout(exports.timeout, function() {
-			callback(new Error('timeout'), null);
-		});
+		res.on('data', (chunk) => buffer += chunk.toString('utf8'));
+		req.setTimeout(exports.timeout, () => callback(new Error('timeout'), null));
 
 		res.on('end', function() {
 
@@ -160,15 +155,8 @@ Paypal.prototype.request = function(url, method, data, callback) {
 	};
 
 	var req = Https.request(options, response);
-
-	req.on('error', function(err) {
-    	callback(err, null);
-	});
-
-	if (method === 'POST')
-		req.end(params);
-	else
-		req.end();
+	req.on('error', (err) => callback(err, null));
+	req.end(params);
 
 	return self;
 };
