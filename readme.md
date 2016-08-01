@@ -21,12 +21,14 @@ $ npm install paypal-express-checkout
 ***
 
 ```javascript
-var paypal = require('paypal-express-checkout').init('username', 'password', 'signature', 'return url', 'cancel url', debug);
+var paypal = require('paypal-express-checkout');
+// debug = optional, defaults to false, if true then paypal's sandbox url is used
+// paypal.init('some username', 'some password', 'signature', 'return url', 'cancel url', debug);
+paypal.init('username', 'password', 'signature', 'http://www.example.com/return', 'http://www.example.com/cancel', true);
 
-// debug = optional, default false
-// paypal.pay('Invoice nubmer', amout, 'description', 'currency', '(optional) requireAddress: true|false (default)', callback);
 // checkout
-
+// requireAddress = optional, defaults to false
+// paypal.pay('Invoice number', amount, 'description', 'currency', requireAddress, callback);
 // paypal.pay('20130001', 123.23, 'iPad', 'EUR', function(err, url) {
 // or with "requireAddress": true
 paypal.pay('20130001', 123.23, 'iPad', 'EUR', true, function(err, url) {
