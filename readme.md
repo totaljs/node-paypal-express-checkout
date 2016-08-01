@@ -21,7 +21,7 @@ $ npm install paypal-express-checkout
 ***
 
 ```javascript
-var paypal = require('paypal-express-checkout').init('username', 'password', 'signature', 'return url', 'cancel url', [debug]);
+var paypal = require('paypal-express-checkout').init('username', 'password', 'signature', 'return url', 'cancel url', debug);
 
 // debug = optional, default false
 // paypal.pay('Invoice nubmer', amout, 'description', 'currency', '(optional) requireAddress: true|false (default)', callback);
