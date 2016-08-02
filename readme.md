@@ -102,9 +102,9 @@ Voided: This authorization has been voided.
 | Contributor | Type | E-mail |
 |-------------|------|--------|
 | [Peter Širka](https://www.petersirka.eu) | author + support | <petersirka@gmail.com> |
+| [Martin Smola](https://github.com/molda) | support + contributor | <smola.martin@gmail.com> |
 | [Johann Botha](https://github.com/johannbotha) | contributor | <johannbbotha@gmail.com> |
 
 ## License
 
-MIT
-<petersirka@gmail.com>
+MIT: Totaljs.com Ltd.

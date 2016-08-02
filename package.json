@@ -1,6 +1,6 @@
 {
     "name": "paypal-express-checkout",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "description": "node.js paypal express checkout",
     "main": "./index.js",
     "engines": {
@@ -21,6 +21,9 @@
     "contributors": [{
         "name": "Peter Širka",
         "email": "petersirka@gmail.com"
+    },{
+        "name": "Martin Smola",
+        "email": "smola.martin@gmail.com"
     }, {
         "name": "Johann Botha",
         "email": "johannbbotha@gmail.com"
