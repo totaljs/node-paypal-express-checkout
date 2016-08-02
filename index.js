@@ -2,7 +2,6 @@ const Parser = require('url');
 const Https = require('https');
 const Qs = require('querystring');
 const HEADERS = {};
-const PARAMS = { VERSION: '52.0' };
 
 function Paypal(username, password, signature, returnUrl, cancelUrl, debug) {
 	this.username = username;
@@ -17,11 +16,12 @@ function Paypal(username, password, signature, returnUrl, cancelUrl, debug) {
 };
 
 Paypal.prototype.params = function() {
-	var self = this;
-	PARAMS.USER = self.username;
-	PARAMS.PWD = self.password;
-	PARAMS.SIGNATURE = self.signature;
-	PARAMS.SOLUTIONTYPE = self.solutiontype;
+	const PARAMS = {};
+	PARAMS.VERSION = '52.0';
+	PARAMS.USER = this.username;
+	PARAMS.PWD = this.password;
+	PARAMS.SIGNATURE = this.signature;
+	PARAMS.SOLUTIONTYPE = this.solutiontype;
 	return PARAMS;
 };
 
