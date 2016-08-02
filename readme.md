@@ -24,7 +24,7 @@ $ npm install paypal-express-checkout
 var Paypal = require('paypal-express-checkout');
 // debug = optional, defaults to false, if true then paypal's sandbox url is used
 // paypal.init('some username', 'some password', 'signature', 'return url', 'cancel url', debug);
-paypal = Paypal.init('username', 'password', 'signature', 'http://www.example.com/return', 'http://www.example.com/cancel', true);
+var paypal = Paypal.init('username', 'password', 'signature', 'http://www.example.com/return', 'http://www.example.com/cancel', true);
 
 // checkout
 // requireAddress = optional, defaults to false
