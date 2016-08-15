@@ -3,6 +3,9 @@ const Https = require('https');
 const Qs = require('querystring');
 const HEADERS = {};
 
+HEADERS['User-Agent'] = 'Total.js PayPal Express Checkout';
+HEADERS['Accept'] = '*/*';
+
 function Paypal(username, password, signature, returnUrl, cancelUrl, debug) {
 	this.username = username;
 	this.password = password;
@@ -16,22 +19,21 @@ function Paypal(username, password, signature, returnUrl, cancelUrl, debug) {
 };
 
 Paypal.prototype.params = function() {
-	const PARAMS = {};
-	PARAMS.VERSION = '52.0';
+	var PARAMS = {};
+	PARAMS.VERSION = '204.0';
 	PARAMS.USER = this.username;
 	PARAMS.PWD = this.password;
 	PARAMS.SIGNATURE = this.signature;
-	PARAMS.SOLUTIONTYPE = this.solutiontype;
 	return PARAMS;
 };
 
 Paypal.prototype.detail = function(token, payer, callback) {
 
 	// Total.js
-	if (token.query !== undefined && typeof(payer) === 'function') {
+	if (token.query && typeof(payer) === 'function') {
 		callback = payer;
-		payer = token.query.PayerID;
-		token = token.query.token;
+		payer = token.query.PayerID || token.query.PAYERID;
+		token = token.query.token || token.query.TOKEN;
 	}
 
 	var self = this;
@@ -42,12 +44,7 @@ Paypal.prototype.detail = function(token, payer, callback) {
 
 	self.request(self.url, 'POST', params, function(err, data) {
 
-		if (err) {
-			callback(err, data);
-			return;
-		}
-
-		if (typeof(data.CUSTOM) === 'undefined') {
+		if (err || !data.PAYMENTREQUEST_0_CUSTOM) {
 			callback(null, data, 0);
 			return;
 		}
@@ -55,20 +52,22 @@ Paypal.prototype.detail = function(token, payer, callback) {
 		var custom = data.CUSTOM.split('|');
 		var params = self.params();
 
-		params.PAYMENTACTION = 'Sale';
 		params.PAYERID = payer;
 		params.TOKEN = token;
-		params.AMT = custom[1];
-		params.CURRENCYCODE = custom[2];
+		params.PAYMENTREQUEST_0_PAYMENTACTION = 'Sale';
+		params.PAYMENTREQUEST_0_INVNUM = custom[0];
+		params.PAYMENTREQUEST_0_AMT = custom[1];
+		params.PAYMENTREQUEST_0_CURRENCYCODE = custom[2];
 		params.METHOD = 'DoExpressCheckoutPayment';
 
 		self.request(self.url, 'POST', params, function(err, data) {
-
-			if (err) {
-				callback(err, data);
-				return;
-			}
-
+			if (err)
+				return callback(err, data);
+			data.ACK2 = data.ACK;
+			data.ACK = data.PAYMENTINFO_0_ACK; // Backward compatibility
+			data.PAYMENTSTATUS = data.PAYMENTINFO_0_PAYMENTSTATUS;
+			var is = (data.PAYMENTINFO_0_PAYMENTSTATUS || '').toLowerCase();
+			data.success = data.ACK.toLowerCase() === 'success' && (is === 'completed' || is === 'processed' || is === 'pending');
 			callback(null, data, custom[0], custom[1]);
 		});
 	});
@@ -87,29 +86,25 @@ Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, re
 	var self = this;
 	var params = self.params();
 
-	params.PAYMENTACTION = 'Sale';
-	params.AMT = prepareNumber(amount);
-	params.RETURNURL = self.returnUrl;
-	params.CANCELURL = self.cancelUrl;
-	params.DESC = description;
+	params.PAYMENTREQUEST_0_PAYMENTACTION = 'SALE';
+	params.PAYMENTREQUEST_0_AMT = prepareNumber(amount);
+	params.PAYMENTREQUEST_0_CURRENCYCODE = currency;
+	params.PAYMENTREQUEST_0_DESC = description;
+	params.PAYMENTREQUEST_0_CUSTOM = invoiceNumber + '|' + params.PAYMENTREQUEST_0_AMT + '|' + params.PAYMENTREQUEST_0_CURRENCYCODE;
+	params.PAYMENTREQUEST_0_INVNUM = invoiceNumber;
+	params.returnUrl = self.returnUrl;
+	params.cancelUrl = self.cancelUrl;
 	params.NOSHIPPING = requireAddress ? 0 : 1;
 	params.ALLOWNOTE = 1;
-	params.CURRENCYCODE = currency;
 	params.METHOD = 'SetExpressCheckout';
-	params.INVNUM = invoiceNumber;
-	params.CUSTOM = invoiceNumber + '|' + params.AMT + '|' + currency;
 
 	self.request(self.url, 'POST', params, function(err, data) {
 
-		if (err) {
-			callback(err, null);
-			return;
-		}
+		if (err)
+			return callback(err, null);
 
-		if (data.ACK === 'Success') {
-			callback(null, self.redirect + '?cmd=_express-checkout&useraction=commit&token=' + data.TOKEN);
-			return;
-		}
+		if (data.ACK === 'Success')
+			return callback(null, self.redirect + '?cmd=_express-checkout&useraction=commit&token=' + data.TOKEN);
 
 		callback(new Error('ACK ' + data.ACK + ': ' + data.L_LONGMESSAGE0), null);
 	});
@@ -128,27 +123,27 @@ Paypal.prototype.request = function(url, method, data, callback) {
 	var uri = Parser.parse(url);
 
 	HEADERS['Content-Type'] = method === 'POST' ? 'application/x-www-form-urlencoded' : 'text/plain';
-	HEADERS['Content-Length'] = params.length;
+	HEADERS['Content-Length'] = new Buffer(params).length;
 
 	var location = '';
 	var options = { protocol: uri.protocol, auth: uri.auth, method: method || 'GET', hostname: uri.hostname, port: uri.port, path: uri.path, agent: false, headers: HEADERS };
 
 	var response = function (res) {
-		var buffer = '';
 
-		res.on('data', (chunk) => buffer += chunk.toString('utf8'));
+		var buffer = new Buffer(0);
+
+		res.on('data', (chunk) => buffer = Buffer.concat([buffer, chunk]));
 		req.setTimeout(exports.timeout, () => callback(new Error('timeout'), null));
-
 		res.on('end', function() {
 
-			var error = null;
-			var data = '';
+			var error;
+			var data;
 
 			if (res.statusCode > 200) {
-				error = new Error(res.statusCode);
-				data = buffer;
+				error = res.statusCode + ': ' + buffer.toString('utf8');
+				data = '';
 			} else
-				data = Qs.parse(buffer);
+				data = Qs.parse(buffer.toString('utf8'));
 
 			callback(error, data);
 		});
@@ -157,13 +152,11 @@ Paypal.prototype.request = function(url, method, data, callback) {
 	var req = Https.request(options, response);
 	req.on('error', (err) => callback(err, null));
 	req.end(params);
-
 	return self;
 };
 
 function prepareNumber(num, doubleZero) {
 	var str = num.toString().replace(',', '.');
-
 	var index = str.indexOf('.');
 	if (index > -1) {
 		var len = str.substring(index + 1).length;

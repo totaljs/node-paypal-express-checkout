@@ -8,9 +8,13 @@ Node.js PayPal Express Checkout
 PayPal account
 --------------
 
-![PayPal account](http://www.totaljs.com/exports/paypal-info.jpg)
+Read here: <https://developer.paypal.com/docs/classic/api/apiCredentials/#creating-an-api-signature>
 
-<https://developer.paypal.com/webapps/developer/applications/accounts>
+- Log in to your PayPal business account at www.paypal.com. Click the profile icon ( Profile menu ) on the top right side of the page. From the Business Profile menu, select Profile and Settings.
+- From the left menu, click My selling tools.
+- In the Selling online section, click the Update link for the API access item.
+- To generate the API signature, click Request API Credentials on the API Access page. ![Request API credentials](https://www.paypalobjects.com/webstatic/en_US/developer/docs/api/classicApiCerts/requestApiCreds.png)
+- Select Request API signature and click Agree and Submit to generate the API signature. ![Signature](https://www.paypalobjects.com/webstatic/en_US/developer/docs/api/classicApiCerts/signatureCredentials.png)
 
 ***
 
@@ -104,6 +108,12 @@ Voided: This authorization has been voided.
 | [Peter Širka](https://www.petersirka.eu) | author + support | <petersirka@gmail.com> |
 | [Martin Smola](https://github.com/molda) | support + contributor | <smola.martin@gmail.com> |
 | [Johann Botha](https://github.com/johannbotha) | contributor | <johannbbotha@gmail.com> |
+
+## Images
+
+![Payment Card Types](https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppmcvdam.png)
+
+![PayPal Express Checkout Button](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-pill-paypalcheckout-34px.png)
 
 ## License
 
