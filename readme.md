@@ -57,6 +57,13 @@ paypal.detail('EC-788441863R616634K', '9TM892TKTDWCE', function(err, data, invoi
 		return;
 	}
 
+	// data.success == {Boolean}
+	
+	if (data.success)
+		console.log('DONE, PAYMENT IS COMPLETED.');
+	else
+		console.log('SOME PROBLEM:', data);
+
 	/*
 	data (object) =
 	{ TOKEN: 'EC-35S39602J3144082X',
