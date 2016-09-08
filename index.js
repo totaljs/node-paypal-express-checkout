@@ -67,7 +67,7 @@ Paypal.prototype.detail = function(token, payer, callback) {
 			data.ACK = data.PAYMENTINFO_0_ACK; // Backward compatibility
 			data.PAYMENTSTATUS = data.PAYMENTINFO_0_PAYMENTSTATUS;
 			var is = (data.PAYMENTINFO_0_PAYMENTSTATUS || '').toLowerCase();
-			data.success = data.ACK.toLowerCase() === 'success' && (is === 'completed' || is === 'processed' || is === 'pending');
+			data.success = (data.ACK || 'failure').toLowerCase() === 'success' && (is === 'completed' || is === 'processed' || is === 'pending');
 			callback(null, data, custom[0], custom[1]);
 		});
 	});
