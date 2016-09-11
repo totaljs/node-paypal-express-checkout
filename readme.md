@@ -1,3 +1,5 @@
+[![NPM version][npm-version-image]][npm-url] [![NPM quality][npm-quality]](http://packagequality.com/#?package=total.js) [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url]
+
 Node.js PayPal Express Checkout
 ==================================================
 
@@ -122,6 +124,10 @@ Voided: This authorization has been voided.
 
 ![PayPal Express Checkout Button](https://www.paypalobjects.com/webstatic/en_US/i/btn/png/gold-pill-paypalcheckout-34px.png)
 
-## License
+[license-image]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: license.txt
 
-MIT: Totaljs.com Ltd.
+[npm-url]: https://npmjs.org/package/total.js
+[npm-version-image]: https://img.shields.io/npm/v/total.js.svg?style=flat
+[npm-downloads-image]: https://img.shields.io/npm/dm/total.js.svg?style=flat
+[npm-quality]: http://npm.packagequality.com/shield/total.js.svg
