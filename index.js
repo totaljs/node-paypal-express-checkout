@@ -72,6 +72,7 @@ Paypal.prototype.detail = function(token, payer, callback) {
 
 		var custom = data.CUSTOM.split('|');
 		var params = self.params();
+		var prevData = data;
 
 		params.PAYERID = payer;
 		params.TOKEN = token;
@@ -89,7 +90,7 @@ Paypal.prototype.detail = function(token, payer, callback) {
 			data.PAYMENTSTATUS = data.PAYMENTINFO_0_PAYMENTSTATUS;
 			var is = (data.PAYMENTINFO_0_PAYMENTSTATUS || '').toLowerCase();
 			data.success = (data.ACK || 'failure').toLowerCase() === 'success' && (is === 'completed' || is === 'processed' || is === 'pending');
-			callback(null, data, custom[0], custom[1]);
+			callback(null, Object.assign(prevData, data), custom[0], custom[1]);
 		});
 	});
 
