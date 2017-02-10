@@ -1,7 +1,10 @@
 [![NPM version][npm-version-image]][npm-url] [![NPM quality][npm-quality]](http://packagequality.com/#?package=total.js) [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url]
 
+- [__Live chat with professional support__](https://messenger.totaljs.com)
+- [__HelpDesk with professional support__](https://helpdesk.totaljs.com)
+
 Node.js PayPal Express Checkout
-==================================================
+===============================
 
 * Easy to use
 * __No dependencies__
