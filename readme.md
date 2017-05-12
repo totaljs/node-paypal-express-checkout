@@ -35,6 +35,11 @@ var Paypal = require('paypal-express-checkout');
 // paypal.init('some username', 'some password', 'signature', 'return url', 'cancel url', debug);
 var paypal = Paypal.init('username', 'password', 'signature', 'http://www.example.com/return', 'http://www.example.com/cancel', true);
 
+// Localization (OPTIONAL): https://developer.paypal.com/docs/classic/api/locale_codes/
+// paypal.locale = 'SK';
+// or
+// paypal.locale = 'en_US';
+
 // checkout
 // requireAddress = optional, defaults to false
 // paypal.pay('Invoice number', amount, 'description', 'currency', requireAddress, callback);

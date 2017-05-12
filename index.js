@@ -1,4 +1,4 @@
-// Copyright 2012-2016 (c) Peter Širka <petersirka@gmail.com>
+// Copyright 2012-2017 (c) Peter Širka <petersirka@gmail.com>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
 // copy of this software and associated documentation files (the
@@ -37,7 +37,8 @@ function Paypal(username, password, signature, returnUrl, cancelUrl, debug) {
 	this.cancelUrl = cancelUrl;
 	this.url = 'https://' + (debug ? 'api-3t.sandbox.paypal.com' : 'api-3t.paypal.com') + '/nvp';
 	this.redirect = 'https://' + (debug ? 'www.sandbox.paypal.com/cgi-bin/webscr' : 'www.paypal.com/cgi-bin/webscr');
-};
+	this.locale = '';
+}
 
 Paypal.prototype.params = function() {
 	var PARAMS = {};
@@ -118,17 +119,20 @@ Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, re
 	params.cancelUrl = self.cancelUrl;
 	params.NOSHIPPING = requireAddress ? 0 : 1;
 	params.ALLOWNOTE = 1;
+
+	if (self.locale)
+		params.LOCALECODE = self.locale;
+
 	params.METHOD = 'SetExpressCheckout';
 
 	self.request(self.url, 'POST', params, function(err, data) {
-
 		if (err)
 			return callback(err, null);
 
 		if (data.ACK === 'Success')
-			return callback(null, self.redirect + '?cmd=_express-checkout&useraction=commit&token=' + data.TOKEN);
-
-		callback(new Error('ACK ' + data.ACK + ': ' + data.L_LONGMESSAGE0), null);
+			callback(null, self.redirect + '?cmd=_express-checkout&useraction=commit&token=' + data.TOKEN);
+		else
+			callback(new Error('ACK ' + data.ACK + ': ' + data.L_LONGMESSAGE0), null);
 	});
 
 	return self;
@@ -147,10 +151,9 @@ Paypal.prototype.request = function(url, method, data, callback) {
 	HEADERS['Content-Type'] = method === 'POST' ? 'application/x-www-form-urlencoded' : 'text/plain';
 	HEADERS['Content-Length'] = new Buffer(params).length;
 
-	var location = '';
 	var options = { protocol: uri.protocol, auth: uri.auth, method: method || 'GET', hostname: uri.hostname, port: uri.port, path: uri.path, agent: false, headers: HEADERS };
 
-	var response = function (res) {
+	var response = function(res) {
 
 		var buffer = new Buffer(0);
 
