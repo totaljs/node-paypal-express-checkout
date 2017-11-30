@@ -18,14 +18,22 @@
     "author": {
         "name": "Peter Širka"
     },
-    "contributors": [{
-        "name": "Peter Širka",
-        "email": "petersirka@gmail.com"
-    },{
-        "name": "Martin Smola",
-        "email": "smola.martin@gmail.com"
-    }, {
-        "name": "Johann Botha",
-        "email": "johannbbotha@gmail.com"
-    }]
+    "contributors": [
+        {
+            "name": "Peter Širka",
+            "email": "petersirka@gmail.com"
+        },
+        {
+            "name": "Martin Smola",
+            "email": "smola.martin@gmail.com"
+        },
+        {
+            "name": "Johann Botha",
+            "email": "johannbbotha@gmail.com"
+        },
+        {
+            "name": "Umar Hansa",
+            "email": "umar.hansa@gmail.com"
+        }
+    ]
 }

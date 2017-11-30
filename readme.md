@@ -42,10 +42,10 @@ var paypal = Paypal.init('username', 'password', 'signature', 'http://www.exampl
 
 // checkout
 // requireAddress = optional, defaults to false
-// paypal.pay('Invoice number', amount, 'description', 'currency', requireAddress, callback);
+// paypal.pay('Invoice number', amount, 'description', 'currency', requireAddress, customData, callback);
 // paypal.pay('20130001', 123.23, 'iPad', 'EUR', function(err, url) {
 // or with "requireAddress": true
-paypal.pay('20130001', 123.23, 'iPad', 'EUR', true, function(err, url) {
+paypal.pay('20130001', 123.23, 'iPad', 'EUR', true, ['custom', 'data'], function(err, url) {
 	if (err) {
 		console.log(err);
 		return;
