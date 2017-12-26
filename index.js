@@ -98,7 +98,7 @@ Paypal.prototype.detail = function(token, payer, callback) {
 	return self;
 };
 
-Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, requireAddress, callback) {
+Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, requireAddress, customData = [], callback) {
 
 	// Backward compatibility
 	if (typeof(requireAddress) === 'function') {
@@ -113,7 +113,10 @@ Paypal.prototype.pay = function(invoiceNumber, amount, description, currency, re
 	params.PAYMENTREQUEST_0_AMT = prepareNumber(amount);
 	params.PAYMENTREQUEST_0_CURRENCYCODE = currency;
 	params.PAYMENTREQUEST_0_DESC = description;
-	params.PAYMENTREQUEST_0_CUSTOM = invoiceNumber + '|' + params.PAYMENTREQUEST_0_AMT + '|' + params.PAYMENTREQUEST_0_CURRENCYCODE;
+
+	const customField = [invoiceNumber, params.PAYMENTREQUEST_0_AMT, params.PAYMENTREQUEST_0_CURRENCYCODE, ...customData];
+
+	params.PAYMENTREQUEST_0_CUSTOM = customField.join('|');
 	params.PAYMENTREQUEST_0_INVNUM = invoiceNumber;
 	params.returnUrl = self.returnUrl;
 	params.cancelUrl = self.cancelUrl;
