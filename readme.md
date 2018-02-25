@@ -60,7 +60,9 @@ paypal.pay('20130001', 123.23, 'iPad', 'EUR', true, ['custom', 'data'], function
 // or
 // paypal.detail(totaljs.controller, callback);
 
-paypal.detail('EC-788441863R616634K', '9TM892TKTDWCE', function(err, data, invoiceNumber, price) {
+paypal.detail('EC-788441863R616634K', '9TM892TKTDWCE', function(err, data, invoiceNumber, price, custom_data_array) {
+
+	// custom_data_array {String Array} - supported in +v1.6.3
 
 	if (err) {
 		console.log(err);
@@ -68,7 +70,7 @@ paypal.detail('EC-788441863R616634K', '9TM892TKTDWCE', function(err, data, invoi
 	}
 
 	// data.success == {Boolean}
-	
+
 	if (data.success)
 		console.log('DONE, PAYMENT IS COMPLETED.');
 	else

@@ -91,7 +91,7 @@ Paypal.prototype.detail = function(token, payer, callback) {
 			data.PAYMENTSTATUS = data.PAYMENTINFO_0_PAYMENTSTATUS;
 			var is = (data.PAYMENTINFO_0_PAYMENTSTATUS || '').toLowerCase();
 			data.success = (data.ACK || 'failure').toLowerCase() === 'success' && (is === 'completed' || is === 'processed' || is === 'pending');
-			callback(null, Object.assign(prevData, data), custom[0], custom[1]);
+			callback(null, Object.assign(prevData, data), custom[0], custom[1], custom);
 		});
 	});
 
